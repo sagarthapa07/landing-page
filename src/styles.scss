@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Brand */
+  --brand-primary: #0095C0;
+  --brand-primary-hover: #007EA3;
+  --brand-primary-light: #00C7FF;
+  --brand-primary-soft: #E7F9FF;
+  --brand-primary-soft-border: #b3eeff;
+
+  /* Backgrounds */
+  --bg-page: #F8F9FD;
+  --bg-section-alt: #FCFDFF;
+  --bg-white: #FFFFFF;
+  --bg-dark: #1A1D23;
+  --bg-dark-card: #2C3137;
+
+  /* Text */
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6C757D;
+  --text-muted-light: #ADB5BD;
+
+  /* Borders */
+  --border-default: #DEE2E6;
+  --border-light: #EDF2F7;
+
+  /* Semantic */
+  --success: #198754;
+  --success-bg: #D1E7DD;
+  --destructive: #DC3545;
+  --destructive-bg: #F8D7DA;
+  --warning: #FFC107;
+  --warning-bg: #FFF3CD;
+
+  --font-family-base: 'Poppins', sans-serif;
+}
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

@@ -1,0 +1,54 @@
+<nav id="navbar" [class.scrolled]="scrolled">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">G</div>
+      <span class="logo-text">GrantFlow</span>
+    </a>
+
+    <div class="desktop-nav">
+      @for (item of navItems; track item.label) {
+        <div
+          class="nav-item"
+          [class.active]="item.active"
+          (mouseenter)="openDropdown(item)"
+          (mouseleave)="closeDropdown(item)"
+        >
+          <button class="nav-item-btn">
+            {{ item.label }}
+            <i class="bi bi-chevron-down"></i>
+          </button>
+
+          @if (item.active) {
+            <div class="dropdown">
+              @for (sub of item.subLinks; track sub) {
+                <a href="#">{{ sub }}</a>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="nav-right">
+      <a href="#" class="login-link">Log In</a>
+      <a href="#" class="pill-btn">Try 14 days free</a>
+    </div>
+
+    <button class="mobile-menu-btn" [class.open]="menuOpen" (click)="toggleMenu()" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-panel" [class.open]="menuOpen">
+    @for (item of navItems; track item.label) {
+      <a href="#" class="mobile-link">{{ item.label }}</a>
+    }
+
+    <div class="mobile-cta">
+      <a href="#" class="login-link">Log In</a>
+      <a href="#" class="pill-btn">Try 14 days free</a>
+    </div>
+  </div>
+</nav>
