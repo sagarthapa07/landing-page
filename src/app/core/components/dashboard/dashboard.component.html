@@ -1,0 +1,102 @@
+<app-navbar></app-navbar>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="badge">
+        <span class="badge-icon">🏆</span>
+        <span class="badge-text">$1.1B+ in grants managed</span>
+      </div>
+
+      <h1 class="headline">
+        Grant work was<br />
+        <span class="headline-gradient">scattered.</span>
+        Now it's<br />a system.
+      </h1>
+
+      <p class="subtext">
+        GrantFlow brings discovery, applications, budgets, and team collaboration into one
+        intelligent platform — so you can focus on your mission, not your spreadsheets.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" class="pill-btn pill-btn--primary">Sign-Up for Free →</a>
+        <a href="#" class="pill-btn pill-btn--outline">Watch demo</a>
+      </div>
+
+      <div class="trust">
+        <div class="stars"></div>
+        <span class="trust-text">4.9 / 5 on G2 &nbsp;·&nbsp; 5,500+ organizations</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- <img src="../../../../assets/Screenshot 2026-08-07 111801.png" alt="Dashboard" class="hero-image" /> -->
+      <img
+        src="https://images.unsplash.com/photo-1532102235608-dc8fc689c9ab?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Dashboard"
+        class="hero-image"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <p class="trust-bar__label">TRUSTED BY 5,500+ ORGANIZATIONS ACROSS THE UNITED STATES</p>
+
+  <div class="trust-bar__orgs">
+    <span *ngFor="let org of orgs">{{ org }}</span>
+  </div>
+
+  <div class="trust-bar__ratings">
+    <div class="rating-pill">
+      <span class="rating-pill__name">Capterra</span>
+      <span class="rating-pill__stars">★★★★★</span>
+      <span class="rating-pill__score">5.0</span>
+    </div>
+    <div class="rating-pill">
+      <span class="rating-pill__name">G2</span>
+      <span class="rating-pill__stars">★★★★★</span>
+      <span class="rating-pill__score">4.9</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <!-- LEFT: text content -->
+    <div class="features-left">
+      <span class="section-label">AI-POWERED PLATFORM</span>
+      <h2 class="features-headline">Intelligent features built for<br />grant professionals</h2>
+      <p class="features-sub">
+        Every feature is designed to reduce manual work and surface insights that help nonprofits
+        win more funding.
+      </p>
+    </div>
+
+    <div class="features-right">
+      <div class="pills-viewport">
+        <div class="pills-fade pills-fade--top"></div>
+        <div class="pills-track">
+          <div class="feature-pill" *ngFor="let f of featuresDoubled">
+            <span class="feature-pill__icon" [style.background]="f.iconBg">
+              {{ f.icon }}
+            </span>
+            <span class="feature-pill__label">{{ f.label }}</span>
+          </div>
+        </div>
+
+        <div class="pills-fade pills-fade--bottom"></div>
+      </div>
+
+      <div class="stats-grid">
+        <div *ngFor="let s of stats" class="stat-card">
+          <div class="stat-card__value">{{ s.value }}</div>
+          <div class="stat-card__label">{{ s.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-grant-carousel></app-grant-carousel>
