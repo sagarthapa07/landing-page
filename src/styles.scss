@@ -1,40 +1,293 @@
+@import 'bootstrap/scss/bootstrap';
+
 :root {
-  /* Brand */
-  --brand-primary: #0095C0;
-  --brand-primary-hover: #007EA3;
-  --brand-primary-light: #00C7FF;
-  --brand-primary-soft: #E7F9FF;
+  /* =========================
+     Brand
+  ========================= */
+  --brand-primary: #0095c0;
+  --brand-primary-hover: #007ea3;
+  --brand-primary-light: #00c7ff;
+  --brand-primary-soft: #e7f9ff;
   --brand-primary-soft-border: #b3eeff;
 
-  /* Backgrounds */
-  --bg-page: #F8F9FD;
-  --bg-section-alt: #FCFDFF;
-  --bg-white: #FFFFFF;
-  --bg-dark: #1A1D23;
-  --bg-dark-card: #2C3137;
+  /* Secondary / Accent */
+  --brand-secondary: #6f42c1;
+  --brand-secondary-hover: #59359a;
+  --brand-secondary-light: #8e6ccf;
+  --brand-secondary-soft: #f3eeff;
 
-  /* Text */
+  /* =========================
+     Backgrounds
+  ========================= */
+  --bg-page: #f8f9fd;
+  --bg-section-alt: #fcfdff;
+  --bg-white: #ffffff;
+  --bg-dark: #1a1d23;
+  --bg-dark-card: #2c3137;
+  --bg-light: #f1f5f9;
+  --bg-hover: #f3f8fa;
+  --bg-selected: #e7f9ff;
+  --bg-disabled: #e9ecef;
+
+  /* =========================
+     Text
+  ========================= */
   --text-primary: #212529;
   --text-secondary: #495057;
-  --text-muted: #6C757D;
-  --text-muted-light: #ADB5BD;
+  --text-muted: #6c757d;
+  --text-muted-light: #adb5bd;
+  --text-white: #ffffff;
+  --text-link: #0095c0;
+  --text-link-hover: #007ea3;
+  --text-disabled: #adb5bd;
 
-  /* Borders */
-  --border-default: #DEE2E6;
-  --border-light: #EDF2F7;
+  /* =========================
+     Borders
+  ========================= */
+  --border-default: #dee2e6;
+  --border-light: #edf2f7;
+  --border-dark: #ced4da;
+  --border-focus: #0095c0;
+  --border-primary: #b3eeff;
 
-  /* Semantic */
+  /* =========================
+     Success
+  ========================= */
   --success: #198754;
-  --success-bg: #D1E7DD;
-  --destructive: #DC3545;
-  --destructive-bg: #F8D7DA;
-  --warning: #FFC107;
-  --warning-bg: #FFF3CD;
+  --success-hover: #157347;
+  --success-light: #20c997;
+  --success-bg: #d1e7dd;
+  --success-border: #a3cfbb;
+  --success-text: #0f5132;
 
+  /* =========================
+     Danger / Destructive
+  ========================= */
+  --destructive: #dc3545;
+  --destructive-hover: #bb2d3b;
+  --destructive-light: #f16b78;
+  --destructive-bg: #f8d7da;
+  --destructive-border: #f1aeb5;
+  --destructive-text: #842029;
+
+  /* =========================
+     Warning
+  ========================= */
+  --warning: #ffc107;
+  --warning-hover: #e0a800;
+  --warning-light: #ffda6a;
+  --warning-bg: #fff3cd;
+  --warning-border: #ffe69c;
+  --warning-text: #664d03;
+
+  /* =========================
+     Info
+  ========================= */
+  --info: #0dcaf0;
+  --info-hover: #0aa2c0;
+  --info-light: #6edff6;
+  --info-bg: #cff4fc;
+  --info-border: #9eeaf9;
+  --info-text: #055160;
+
+  /* =========================
+     Orange
+  ========================= */
+  --orange: #fd7e14;
+  --orange-hover: #dc6502;
+  --orange-light: #ffb066;
+  --orange-bg: #ffe5d0;
+  --orange-border: #ffccaa;
+
+  /* =========================
+     Purple
+  ========================= */
+  --purple: #6f42c1;
+  --purple-hover: #59359a;
+  --purple-light: #9b7ed4;
+  --purple-bg: #ede7f9;
+  --purple-border: #d6c7f0;
+
+  /* =========================
+     Blue
+  ========================= */
+  --blue: #0d6efd;
+  --blue-hover: #0a58ca;
+  --blue-light: #6ea8fe;
+  --blue-bg: #e7f1ff;
+  --blue-border: #b6d4fe;
+
+  /* =========================
+     Teal
+  ========================= */
+  --teal: #20c997;
+  --teal-hover: #199d76;
+  --teal-light: #75e0c1;
+  --teal-bg: #d2f4ea;
+  --teal-border: #a6e9d5;
+
+  /* =========================
+     Neutral
+  ========================= */
+  --neutral-50: #f8f9fa;
+  --neutral-100: #f1f3f5;
+  --neutral-200: #e9ecef;
+  --neutral-300: #dee2e6;
+  --neutral-400: #ced4da;
+  --neutral-500: #adb5bd;
+  --neutral-600: #6c757d;
+  --neutral-700: #495057;
+  --neutral-800: #343a40;
+  --neutral-900: #212529;
+
+  /* =========================
+     Overlay / Effects
+  ========================= */
+  --overlay-light: rgba(0, 0, 0, 0.04);
+  --overlay-medium: rgba(0, 0, 0, 0.08);
+  --overlay-dark: rgba(0, 0, 0, 0.45);
+
+  /* =========================
+     Shadows
+  ========================= */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 4px 12px rgba(0, 149, 192, 0.18);
+
+  /* =========================
+     Focus
+  ========================= */
+  --focus-ring: rgba(0, 149, 192, 0.25);
+
+  /* =========================
+     Fonts
+  ========================= */
   --font-family-base: 'Poppins', sans-serif;
 }
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
 
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+/* =========================================================
+   GLOBAL BUTTONS
+   Ye file globally import hogi (styles.scss mein) —
+   isliye koi :host wrapper nahi, direct classes.
+   Kahin bhi <button class="btn-primary"> likho, kaam karega.
+========================================================= */
+
+%btn-base {
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+  }
+}
+
+/* ── Primary (filled) ───────────────────────────────────── */
+.btn-primary {
+  @extend %btn-base;
+  border: none;
+  background: var(--brand-primary);
+  color: var(--text-white);
+  box-shadow: var(--shadow-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--brand-primary-hover);
+  }
+}
+
+/* ── Outline ─────────────────────────────────────────────── */
+.btn-outline {
+  @extend %btn-base;
+  border: 2px solid var(--brand-primary);
+  background: transparent;
+  color: var(--brand-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--brand-primary-soft);
+  }
+}
+
+/* ── Secondary (purple accent) ──────────────────────────── */
+.btn-secondary {
+  @extend %btn-base;
+  border: none;
+  background: var(--brand-secondary);
+  color: var(--text-white);
+
+  &:hover:not(:disabled) {
+    background: var(--brand-secondary-hover);
+  }
+}
+
+/* ── Success ─────────────────────────────────────────────── */
+.btn-success {
+  @extend %btn-base;
+  border: none;
+  background: var(--success);
+  color: var(--text-white);
+
+  &:hover:not(:disabled) {
+    background: var(--success-hover);
+  }
+}
+
+/* ── Danger / destructive ───────────────────────────────── */
+.btn-danger {
+  @extend %btn-base;
+  border: none;
+  background: var(--destructive);
+  color: var(--text-white);
+
+  &:hover:not(:disabled) {
+    background: var(--destructive-hover);
+  }
+}
+
+/* ── Ghost (no border, no bg — text ke jaisa halka) ─────── */
+.btn-ghost {
+  @extend %btn-base;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+}
+
+/* ── Size modifiers (optional, jab chota/bada button chahiye) ── */
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 15px;
+}
+
+/* ── Full width (mobile CTAs ke liye) ───────────────────── */
+.btn-block {
+  width: 100%;
+}

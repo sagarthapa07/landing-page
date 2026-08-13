@@ -100,3 +100,244 @@
 </section>
 
 <app-grant-carousel></app-grant-carousel>
+
+<section class="lifecycle">
+  <div class="lifecycle-inner">
+    <!-- Header -->
+    <div class="lifecycle-header">
+      <span class="section-label">HOW IT WORKS</span>
+      <h2 class="lifecycle-headline">One platform for your entire grant lifecycle</h2>
+      <p class="lifecycle-sub">
+        From prospect research to award reporting — GrantFlow handles it all.
+      </p>
+    </div>
+
+    <!-- Tab pills -->
+    <div class="tab-row">
+      <button
+        *ngFor="let tab of tabs"
+        class="tab-pill"
+        [class.tab-pill--active]="activeTab === tab.id"
+        (click)="setTab(tab.id)"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- Content panel -->
+    <div class="content-panel" *ngIf="activeContent as content">
+      <!-- LEFT: text -->
+      <div class="content-left">
+        <h3 class="content-headline">{{ content.headline }}</h3>
+        <p class="content-sub">{{ content.sub }}</p>
+
+        <ul class="feature-list">
+          <li *ngFor="let f of content.features" class="feature-item">
+            <span class="feature-check">✓</span>
+            <span
+              ><strong>{{ f.title }}</strong> {{ f.desc }}</span
+            >
+          </li>
+        </ul>
+
+        <button class="cta-btn">{{ content.cta }} →</button>
+      </div>
+      <div class="content-right">
+        <img
+          *ngIf="activeTab === 'discover'"
+          src="../../../../assets/Screenshot 2026-08-13 115804.png"
+          alt="Discover tab"
+          class="tab-screenshot"
+        />
+
+        <img
+          *ngIf="activeTab === 'apply'"
+          src="../../../../assets/Screenshot 2026-08-13 115814.png"
+          alt="Apply tab"
+          class="tab-screenshot"
+        />
+
+        <img
+          *ngIf="activeTab === 'manage'"
+          src="../../../../assets/Screenshot 2026-08-13 115822.png"
+          alt="Manage tab"
+          class="tab-screenshot"
+        />
+
+        <img
+          *ngIf="activeTab === 'collaborate'"
+          src="../../../../assets/Screenshot 2026-08-13 115829.png"
+          alt="Collaborate tab"
+          class="tab-screenshot"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team-collab">
+  <div class="team-collab-inner">
+    <div class="collab-card">
+      <!-- Glow blob -->
+      <div class="collab-glow"></div>
+
+      <!-- Left: icon -->
+      <div class="collab-icon-wrap">
+        <div class="collab-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="14" cy="13" r="5" fill="white" opacity="0.95" />
+            <circle cx="26" cy="13" r="5" fill="white" opacity="0.75" />
+            <path
+              d="M4 30c0-5.523 4.477-10 10-10h12c5.523 0 10 4.477 10 10"
+              stroke="white"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              fill="none"
+              opacity="0.95"
+            />
+          </svg>
+        </div>
+
+        <!-- Floating avatar stack -->
+        <div class="avatar-stack">
+          <div class="avatar" style="background: var(--brand-primary)">MR</div>
+          <div class="avatar" style="background: var(--purple)">JT</div>
+          <div class="avatar" style="background: var(--success)">SL</div>
+          <div class="avatar avatar--count">+4</div>
+        </div>
+      </div>
+
+      <!-- Center: text -->
+      <div class="collab-content">
+        <div class="collab-title-row">
+          <h3 class="collab-title">Team Collaboration</h3>
+          <span class="team-badge">Team Plan</span>
+        </div>
+        <p class="collab-desc">
+          Invite your entire development team, assign grant tasks, track who's working on what, and
+          keep everyone aligned with shared comments and real-time progress updates — all in one
+          workspace.
+        </p>
+        <div class="collab-actions">
+          <button
+            *ngFor="let a of actions; let i = index"
+            class="btn-lg"
+            [class.btn-primary]="i === 0"
+            [class.btn-outline]="i !== 0"
+          >
+            <span class="action-btn__icon">{{ a.icon }}</span>
+            {{ a.label }} →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="gwi-section" *ngIf="gwi as g">
+    <div class="gwi-inner">
+      <div class="gwi-card">
+        <!-- LEFT: icon + title + desc -->
+        <div class="gwi-left">
+          <div class="gwi-icon">
+            <img src="../../../../assets/gwi_sign.png" alt="" />
+          </div>
+          <div class="gwi-left-text">
+            <h3 class="gwi-title">{{ g.title }}</h3>
+            <h4 class="gwi-subtitle">{{ g.subtitle }}</h4>
+            <p class="gwi-desc">{{ g.description }}</p>
+          </div>
+        </div>
+
+        <div class="gwi-divider"></div>
+
+        <!-- MIDDLE: checklist -->
+        <div class="gwi-checklist">
+          <div class="gwi-check-item" *ngFor="let item of g.checklist">
+            <span class="gwi-check-icon">✓</span>
+            <span class="gwi-check-text">{{ item }}</span>
+          </div>
+        </div>
+
+        <div class="gwi-divider"></div>
+
+        <!-- RIGHT: tokens -->
+        <div class="gwi-tokens">
+          <h4 class="gwi-tokens-title">{{ g.tokensTitle }}</h4>
+          <div class="gwi-tokens-row">
+            <img src="../../../../assets/10mv2.webp" alt="" />
+            <p class="gwi-tokens-desc">{{ g.tokensDesc }}</p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button class="gwi-cta">{{ g.ctaLabel }} →</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section class="platform-features">
+  <div class="platform-inner">
+    <!-- Header -->
+    <div class="platform-header">
+      <span class="section-label">PLATFORM FEATURES</span>
+      <h2 class="platform-headline">Everything You Need to Succeed</h2>
+      <p class="platform-sub">
+        A complete toolkit for modern grant professionals — from discovery to reporting, all in one
+        place.
+      </p>
+    </div>
+
+    <!-- 3x2 Grid -->
+    <div class="features-grid">
+      <div *ngFor="let f of platformFeatures" class="feature-card">
+        <div class="feature-card__icon" [style.background]="f.iconBg">
+          <span>{{ f.icon }}</span>
+        </div>
+        <h3 class="feature-card__title">{{ f.title }}</h3>
+        <p class="feature-card__desc" [innerHTML]="f.desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="pipelines">
+  <div class="pipelines-inner">
+    <div class="pipelines-header">
+      <span class="section-label">FUNDING PIPELINES</span>
+      <h2 class="pipelines-headline">Funding Pipelines</h2>
+      <p class="pipelines-sub">
+        Track every funding opportunity from first interest through long-term success.
+      </p>
+    </div>
+
+    <div class="pipelines-grid">
+      <div class="pipeline-card">
+        <h3 class="pipeline-card__title">Grant Funding Pipeline</h3>
+        <div class="pipeline-steps">
+          <div *ngFor="let s of grantSteps; let i = index" class="step">
+            <div class="step__bubble" [style.background]="s.color">{{ i + 1 }}</div>
+            <div class="step__label">{{ s.label }}</div>
+          </div>
+        </div>
+        <div class="pipeline-progress">
+          <div *ngFor="let s of grantSteps" class="progress-seg" [style.background]="s.color"></div>
+        </div>
+        <button class="btn-primary btn-lg">Explore Grant Pipeline →</button>
+      </div>
+      <div class="pipeline-card">
+        <h3 class="pipeline-card__title">Donor Prospecting Pipeline</h3>
+        <div class="pipeline-steps">
+          <div *ngFor="let s of donorSteps; let i = index" class="step">
+            <div class="step__bubble" [style.background]="s.color">{{ i + 1 }}</div>
+            <div class="step__label">{{ s.label }}</div>
+          </div>
+        </div>
+        <div class="pipeline-progress">
+          <div *ngFor="let s of donorSteps" class="progress-seg" [style.background]="s.color"></div>
+        </div>
+        <button class="btn-primary btn-lg">Explore Donor Pipeline →</button>
+      </div>
+    </div>
+  </div>
+</section> -->

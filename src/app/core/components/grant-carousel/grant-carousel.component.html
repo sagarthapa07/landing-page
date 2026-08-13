@@ -1,159 +1,101 @@
+<!--
+  NOTE: Navbar yahan nahi hai — wo tumhara pehle se bana hua hai,
+  is component ko seedha uske niche render kar dena.
+-->
 <section class="carousel-section">
   <div class="carousel-inner">
 
-    <!-- Section header -->
     <div class="carousel-header">
-      <span class="section-label">LIVE GRANT MATCHES</span>
-      <h2 class="carousel-headline">See grants matched to your organization</h2>
+      <span class="section-label">
+        <span class="section-label__dot"></span>
+        LIVE MATCHES
+      </span>
+      <h2 class="carousel-headline">Grants &amp; resources matched<br>to your organization</h2>
       <p class="carousel-sub">
-        Real opportunities from our database, matched to a sample nonprofit profile.
+        Real opportunities and guides from our database, matched to a sample nonprofit profile.
       </p>
-
-      <!-- Tab switcher -->
-      <div class="tab-switcher">
-        <button
-          class="tab-btn"
-          [class.tab-btn--active]="activeTab === 'grants'"
-          (click)="setTab('grants')">
-          🎯 Grants
-        </button>
-        <button
-          class="tab-btn"
-          [class.tab-btn--active]="activeTab === 'resources'"
-          (click)="setTab('resources')">
-          📚 Resources
-        </button>
-      </div>
     </div>
 
-    <!-- ══ GRANTS TAB ══ -->
-    <div class="tab-panel" *ngIf="activeTab === 'grants'">
+    <!-- Tab switcher — ab yeh actually content switch karta hai -->
+    <div class="tab-switcher">
+      <button
+        class="tab-btn"
+        [class.tab-btn--active]="activeTab === 'grants'"
+        (click)="setTab('grants')">
+        <span class="tab-icon">🎯</span> Grants
+      </button>
+      <button
+        class="tab-btn"
+        [class.tab-btn--active]="activeTab === 'resources'"
+        (click)="setTab('resources')">
+        <span class="tab-icon">📚</span> Resources
+      </button>
+    </div>
 
-      <!-- Prev arrow -->
+    <!-- Row: single left arrow, 3 cards, single right arrow -->
+    <div class="carousel-row">
       <button class="arrow-btn arrow-btn--left" (click)="prev()">&#8249;</button>
 
-      <!-- Grant card -->
-      <div class="grant-card" [class.card-anim]="animating">
-        <div class="grant-card__top">
-          <span class="category-badge"
-            [style.color]="currentGrant.categoryColor"
-            [style.background]="currentGrant.categoryBg">
-            {{ currentGrant.category }}
-          </span>
-          <span class="match-badge">{{ currentGrant.match }} match</span>
-        </div>
+      <div class="cards-wrap">
+        <div
+          class="grant-card"
+          [@cardEnter]
+          *ngFor="let card of visibleCards; trackBy: trackByCard">
 
-        <h3 class="grant-card__name">{{ currentGrant.name }}</h3>
-        <p class="grant-card__funder">{{ currentGrant.funder }}</p>
+          <div class="grant-card__top">
+            <span class="category-badge"
+              [style.color]="card.categoryColor"
+              [style.background]="card.categoryBg">
+              {{ card.category }}
+            </span>
+            <span
+              class="match-badge"
+              [class.resource-type-badge]="!card.badgeRightIsMatch">
+              {{ card.badgeRight }}
+            </span>
+          </div>
 
-        <div class="grant-card__meta">
-          <div class="meta-item">
-            <span class="meta-icon">💰</span>
-            <span class="meta-label">AWARD AMOUNT</span>
-            <span class="meta-value">{{ currentGrant.amount }}</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-icon">📅</span>
-            <span class="meta-label">DEADLINE</span>
-            <span class="meta-value">{{ currentGrant.deadline }}</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-icon">📍</span>
-            <span class="meta-label">LOCATION</span>
-            <span class="meta-value">{{ currentGrant.location }}</span>
-          </div>
-        </div>
+          <h3 class="grant-card__name">{{ card.title }}</h3>
+          <p class="grant-card__funder">{{ card.subtitle }}</p>
+          <p class="grant-card__desc">{{ card.description }}</p>
 
-        <div class="grant-card__actions">
-          <button class="btn-primary">View full grant details</button>
-          <button class="btn-outline">Save to pipeline</button>
+          <div class="grant-card__meta">
+            <div class="meta-item" *ngFor="let m of card.meta">
+              <span class="meta-icon">{{ m.icon }}</span>
+              <span class="meta-label">{{ m.label }}</span>
+              <span class="meta-value">{{ m.value }}</span>
+            </div>
+          </div>
+
+          <div class="grant-card__actions">
+            <button class="btn-primary">{{ card.primaryBtnLabel }}</button>
+            <button class="btn-outline">{{ card.secondaryBtnLabel }}</button>
+          </div>
         </div>
       </div>
 
-      <!-- Next arrow -->
       <button class="arrow-btn arrow-btn--right" (click)="next()">&#8250;</button>
-
-      <!-- Dots + progress bar -->
-      <div class="carousel-footer">
-        <div class="progress-bar">
-          <div class="progress-bar__fill" [style.animation-duration]="'5s'"></div>
-        </div>
-        <div class="dots">
-          <span
-            *ngFor="let g of grants; let i = index"
-            class="dot"
-            [class.dot--active]="i === currentIndex"
-            (click)="goTo(i)">
-          </span>
-        </div>
-      </div>
-
     </div>
 
-    <!-- ══ RESOURCES TAB ══ -->
-    <div class="tab-panel" *ngIf="activeTab === 'resources'">
+    <!-- Dots: poori list ke items, active window ka start highlight -->
+    <div class="dots">
+      <span
+        *ngFor="let card of activeList; let i = index"
+        class="dot"
+        [class.dot--active]="i === activeStart"
+        (click)="goTo(i)">
+      </span>
+    </div>
 
-      <!-- Prev arrow -->
-      <button class="arrow-btn arrow-btn--left" (click)="prevRes()">&#8249;</button>
-
-      <!-- Resource card -->
-      <div class="resource-card" [class.card-anim]="animating">
-        <div class="resource-card__top">
-          <span class="category-badge"
-            [style.color]="currentResource.categoryColor"
-            [style.background]="currentResource.categoryBg">
-            {{ currentResource.category }}
-          </span>
-          <span class="resource-type-badge">{{ currentResource.type }}</span>
-        </div>
-
-        <h3 class="grant-card__name">{{ currentResource.title }}</h3>
-        <p class="grant-card__funder">{{ currentResource.author }}</p>
-
-        <p class="resource-card__desc">{{ currentResource.description }}</p>
-
-        <div class="grant-card__meta">
-          <div class="meta-item">
-            <span class="meta-icon">⏱️</span>
-            <span class="meta-label">READ TIME</span>
-            <span class="meta-value">{{ currentResource.readTime }}</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-icon">📆</span>
-            <span class="meta-label">PUBLISHED</span>
-            <span class="meta-value">{{ currentResource.published }}</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-icon">🏷️</span>
-            <span class="meta-label">TOPIC</span>
-            <span class="meta-value">{{ currentResource.topic }}</span>
-          </div>
-        </div>
-
-        <div class="grant-card__actions">
-          <button class="btn-primary">Read full article</button>
-          <button class="btn-outline">Save to library</button>
+    <!-- ══ STATS BAR ══ -->
+    <div class="stats-bar">
+      <div class="stat-item" *ngFor="let s of stats">
+        <span class="stat-icon" [style.background]="s.bg">{{ s.icon }}</span>
+        <div class="stat-text">
+          <span class="stat-value">{{ s.value }}</span>
+          <span class="stat-label">{{ s.label }}</span>
         </div>
       </div>
-
-      <!-- Next arrow -->
-      <button class="arrow-btn arrow-btn--right" (click)="nextRes()">&#8250;</button>
-
-      <!-- Dots -->
-      <div class="carousel-footer">
-        <div class="progress-bar">
-          <div class="progress-bar__fill" [style.animation-duration]="'5s'"></div>
-        </div>
-        <div class="dots">
-          <span
-            *ngFor="let r of resources; let i = index"
-            class="dot"
-            [class.dot--active]="i === currentResIndex"
-            (click)="goToRes(i)">
-          </span>
-        </div>
-      </div>
-
     </div>
 
   </div>

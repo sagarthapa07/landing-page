@@ -1,130 +1,128 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { NgFor } from '@angular/common';
-import { GrantCarouselComponent } from "../grant-carousel/grant-carousel.component";
+import { GrantCarouselComponent } from '../grant-carousel/grant-carousel.component';
+import { DataService } from '../../services/data.service';
+import {
+  ActionItem,
+  ActivityItem,
+  ChartLegendItem,
+  CommentItem,
+  DonutPath,
+  DonutSegment,
+  FeaturePill,
+  GwiData,
+  ManageStat,
+  PipelineItem,
+  PipelineStep,
+  PlatformFeature,
+  StatCard,
+  StatTile,
+  TabContent,
+  TabDefinition,
+  TabId,
+  TableRow,
+} from '../../../dataType';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NavbarComponent, NgFor, GrantCarouselComponent],
+  imports: [NavbarComponent, NgFor, GrantCarouselComponent, NgIf],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
+  animations: [
+    trigger('slideUpFade', [
+      transition('* => *', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate(
+          '250ms cubic-bezier(0.22, 1, 0.36, 1)',
+          style({ opacity: 1, transform: 'translateY(0)' }),
+        ),
+      ]),
+    ]),
+  ],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   readonly r = 34;
   readonly circ = 2 * Math.PI * 34;
 
-  readonly segments = [
-    { pct: 0.42, color: '#0095C0' },
-    { pct: 0.28, color: '#00C7FF' },
-    { pct: 0.18, color: '#198754' },
-    { pct: 0.12, color: '#DEE2E6' },
-  ];
+  // ── DataService se aane wala data ──────────────────────────────
+  sidebarItems: string[] = [];
+  statTiles: StatTile[] = [];
+  tableRows: TableRow[] = [];
+  chartLegend: ChartLegendItem[] = [];
+  orgs: string[] = [];
+  features: FeaturePill[] = [];
+  featuresDoubled: FeaturePill[] = [];
+  stats: StatCard[] = [];
+  tabs: TabDefinition[] = [];
+  contentMap: Record<TabId, TabContent> | null = null;
+  pipeline: PipelineItem[] = [];
+  manageStats: ManageStat[] = [];
+  activities: ActivityItem[] = [];
+  comments: CommentItem[] = [];
+  donutPaths: DonutPath[] = [];
+  platformFeatures: PlatformFeature[] = [];
+  actions: ActionItem[] = [];
+  grantSteps: PipelineStep[] = [];
+  donorSteps: PipelineStep[] = [];
 
-  donutPaths: { dash: number; gap: number; offset: number; color: string }[] = [];
-
-  readonly sidebarItems = [
-    'Tracker',
-    'Matches',
-    'Peers',
-    'Awards',
-    'Calendar',
-    'Task',
-    'Reports',
-    'Documents',
-    'Projects',
-  ];
-
-  readonly statTiles = [
-    { label: 'Active Grants', val: '24', delta: '+3 this mo' },
-    { label: 'Awarded YTD', val: '$382K', delta: '+12%' },
-    { label: 'Win Rate', val: '68%', delta: '+4pts' },
-  ];
-
-  readonly tableRows = [
-    {
-      name: 'Robert Wood Johnson Foundation',
-      stage: 'In Review',
-      amt: '$75K',
-      color: '#C07800',
-      bg: '#FFF3CD',
-    },
-    {
-      name: 'Kresge Foundation — Arts',
-      stage: 'Submitted',
-      amt: '$50K',
-      color: '#0095C0',
-      bg: '#E7F9FF',
-    },
-    {
-      name: 'Annie E. Casey Foundation',
-      stage: 'Awarded',
-      amt: '$120K',
-      color: '#198754',
-      bg: '#D1E7DD',
-    },
-    {
-      name: 'MacArthur Fellows Program',
-      stage: 'Drafting',
-      amt: '$25K',
-      color: '#6C757D',
-      bg: '#F3F4F6',
-    },
-  ];
-
-  readonly chartLegend = [
-    { label: 'Won', color: '#0095C0' },
-    { label: 'Pending', color: '#00C7FF' },
-    { label: 'Other', color: '#198754' },
-  ];
-
+  // ── Sirf UI state ──────────────────────────────────────────────
   readonly stars = [1, 2, 3, 4, 5];
+  activeTab: TabId = 'discover';
 
-  readonly orgs = [
-    'UNITED WAY',
-    'BOYS & GIRLS CLUB',
-    'HABITAT FOR HUMANITY',
-    'RED CROSS',
-    'YMCA',
-    'SALVATION ARMY',
-    'GOODWILL',
-  ];
 
-  readonly features = [
-    { icon: '⭐', iconBg: '#FFF8E1', label: 'Smart Funder Match Scoring' },
-    { icon: '✅', iconBg: '#E8F5E9', label: 'Intelligent Eligibility Vetting' },
-    { icon: '🔄', iconBg: '#E3F2FD', label: 'Auto-Updating Grant Pipelines' },
-    { icon: '🤖', iconBg: '#F3E5F5', label: 'AI Narrative Suggestions' },
-    { icon: '📅', iconBg: '#E0F7FA', label: 'Deadline Tracking' },
-    { icon: '🔍', iconBg: '#E8F0FE', label: 'Pattern Detection' },
-    { icon: '🎯', iconBg: '#FDE8F0', label: 'Grant Matching' },
-    { icon: '📊', iconBg: '#E8F5E9', label: 'Automated 990 Data Analysis' },
-    { icon: '🌐', iconBg: '#E3F2FD', label: 'Federal Grant Monitoring' },
-    { icon: '💡', iconBg: '#FFF8E1', label: 'Funder Insight Reports' },
-  ];
+  gwi: GwiData | null = null;
 
-  // Doubled for seamless infinite loop — same trick as React marquee
-  readonly featuresDoubled = [...this.features, ...this.features];
+  constructor(private dataService: DataService) {}
 
-  readonly stats = [
-    { value: '400K+', label: 'Active grants indexed' },
-    { value: '98%', label: 'Match accuracy rate' },
-    { value: '2.4×', label: 'More grants discovered' },
-    { value: '60%', label: 'Less time on research' },
-  ];
-  
   ngOnInit(): void {
-    let offset = 0;
-    this.donutPaths = this.segments.map((s) => {
-      const dash = s.pct * this.circ;
-      const gap = this.circ - dash;
-      const path = { dash, gap, offset, color: s.color };
-      offset += dash;
-      return path;
+    this.dataService.getSidebarItems().subscribe((v) => (this.sidebarItems = v));
+    this.dataService.getStatTiles().subscribe((v) => (this.statTiles = v));
+    this.dataService.getTableRows().subscribe((v) => (this.tableRows = v));
+    this.dataService.getChartLegend().subscribe((v) => (this.chartLegend = v));
+    this.dataService.getOrgs().subscribe((v) => (this.orgs = v));
+
+    this.dataService.getFeaturePills().subscribe((v) => {
+      this.features = v;
+      this.featuresDoubled = [...v, ...v];
+    });
+
+    this.dataService.getStatCards().subscribe((v) => (this.stats = v));
+    this.dataService.getTabs().subscribe((v) => (this.tabs = v));
+    this.dataService.getTabContent().subscribe((v) => (this.contentMap = v));
+    this.dataService.getPipeline().subscribe((v) => (this.pipeline = v));
+    this.dataService.getManageStats().subscribe((v) => (this.manageStats = v));
+    this.dataService.getActivities().subscribe((v) => (this.activities = v));
+    this.dataService.getComments().subscribe((v) => (this.comments = v));
+    this.dataService.getPlatformFeatures().subscribe((v) => (this.platformFeatures = v));
+    this.dataService.getActions().subscribe((v) => (this.actions = v));
+    this.dataService.getGrantSteps().subscribe((v) => (this.grantSteps = v));
+    this.dataService.getDonorSteps().subscribe((v) => (this.donorSteps = v));
+    this.dataService.getGwiData().subscribe((v) => (this.gwi = v));
+
+    this.dataService.getDonutSegments().subscribe((segments: DonutSegment[]) => {
+      let offset = 0;
+      this.donutPaths = segments.map((s) => {
+        const dash = s.pct * this.circ;
+        const gap = this.circ - dash;
+        const path: DonutPath = { dash, gap, offset, color: s.color };
+        offset += dash;
+        return path;
+      });
     });
   }
 
   getOffset(offset: number): number {
     return -offset + this.circ * 0.25;
+  }
+
+  get activeContent(): TabContent | null {
+    return this.contentMap ? this.contentMap[this.activeTab] : null;
+  }
+
+  setTab(id: TabId): void {
+    this.activeTab = id;
   }
 }
