@@ -105,12 +105,12 @@
   font-size: 16px;
 }
 
-// ── Carousel row: arrow + 3 cards + arrow ──────────────────────────
+// ── Carousel row: arrow + 4 cards + arrow ──────────────────────────
 .carousel-row {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 24px;
 }
 
@@ -141,18 +141,19 @@
 .cards-wrap {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  // 3 se 4 columns kar diya, gap thoda kam kiya taaki 4 cards aaram se fit ho jayen
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   min-width: 0;
 }
 
-// ── Card ────────────────────────────────────────────────────────
+// ── Card (ab compact hai — 4 fit karne ke liye chhota) ─────────────
 .grant-card {
   min-width: 0;
   background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-radius: 20px;
-  padding: 32px 30px 34px;
+  border-radius: 16px;
+  padding: 22px 20px 24px;
   box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
@@ -162,55 +163,66 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .category-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 5px 12px;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
   border-radius: 9999px;
   text-transform: uppercase;
 }
 
 .match-badge {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--success);
 }
 
 .resource-type-badge {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
   background: var(--neutral-100);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 9999px;
 }
 
 .grant-card__name {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   line-height: 1.3;
-  min-height: 50px;
+  min-height: 42px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .grant-card__funder {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-link);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .grant-card__desc {
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 13px;
+  line-height: 1.55;
   color: var(--text-secondary);
-  margin: 0 0 22px;
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .grant-card__meta {
@@ -218,8 +230,8 @@
   gap: 0;
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
-  padding: 18px 0;
-  margin-bottom: 24px;
+  padding: 14px 0;
+  margin-bottom: 18px;
 }
 
 .meta-item {
@@ -227,7 +239,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   text-align: center;
   min-width: 0;
 
@@ -237,17 +249,17 @@
 }
 
 .meta-icon {
-  font-size: 18px;
+  font-size: 15px;
 }
 .meta-label {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--text-muted-light);
   text-transform: uppercase;
 }
 .meta-value {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-primary);
   overflow: hidden;
@@ -259,15 +271,15 @@
 .grant-card__actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin-top: auto;
 
   .btn-primary,
   .btn-outline {
     width: 100%;
     text-align: center;
-    font-size: 14px;
-    padding: 12px 20px;
+    font-size: 13px;
+    padding: 10px 16px;
   }
 }
 
@@ -298,7 +310,8 @@
 // STATS BAR
 // ══════════════════════════════════════════════════════════════
 .stats-bar {
-  width: 100%;
+  width: 94%;
+  margin: 0 auto;
   background: var(--bg-white);
   border-radius: 20px;
   box-shadow: var(--shadow-lg);
@@ -343,9 +356,17 @@
   font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 // ── Responsive ────────────────────────────────────────────────────
+// 4 columns (large desktop) → 3 → 2 → 1, screen chhoti hote jaane ke saath
+@media (max-width: 1400px) {
+  .cards-wrap {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1100px) {
   .carousel-inner {
     padding: 0 24px;
@@ -354,9 +375,20 @@
   .cards-wrap {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .stats-bar {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 28px 32px;
+    gap: 20px;
+  }
 }
 
 @media (max-width: 640px) {
+  .carousel-inner {
+    padding: 0 16px;
+  }
+
   .cards-wrap {
     grid-template-columns: 1fr;
   }
@@ -371,7 +403,34 @@
   }
 
   .stats-bar {
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    padding: 24px;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .stat-value {
+    font-size: 17px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .stats-bar {
+    grid-template-columns: 1fr; // ← ab bahut chhote screen pe single column
+    padding: 18px;
+  }
+
+  .stat-item {
+    gap: 12px;
   }
 }

@@ -166,3 +166,16 @@ export interface GwiData {
   tokensDesc: string;
   ctaLabel: string;
 }
+
+export interface HeroHighlight {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+export interface HeroStat {
+  icon: string;
+  iconBg: string;
+  value: string;
+  label: string;
+}

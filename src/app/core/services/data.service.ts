@@ -8,6 +8,8 @@ import {
   PipelineStep,
   ActionItem,
   GwiData,
+  HeroHighlight,
+  HeroStat,
 } from '../../dataType';
 
 import {
@@ -551,5 +553,28 @@ export class DataService {
         "Receive GWI Tokens with eligible first-time MemberPlus+ subscriptions and by claiming your organization's official profile.",
       ctaLabel: 'Try GrantWatch Intelligence™',
     });
+  }
+
+  getHeroHighlights(): Observable<HeroHighlight[]> {
+    return of([
+      { icon: '🔍', title: 'Discover', desc: 'AI-powered grant matching' },
+      { icon: '📁', title: 'Organize', desc: 'Manage applications with ease' },
+      { icon: '🤝', title: 'Collaborate', desc: 'Work together in real time' },
+      { icon: '📈', title: 'Win', desc: 'Track, analyze & improve outcomes' },
+    ]);
+  }
+
+  getHeroStats(): Observable<HeroStat[]> {
+    return of([
+      {
+        icon: '🏢',
+        iconBg: 'rgba(0,149,192,0.1)',
+        value: '5,500+',
+        label: 'Organizations trust us',
+      },
+      { icon: '💲', iconBg: 'rgba(25,135,84,0.1)', value: '$1.1B+', label: 'In grants managed' },
+      { icon: '🙂', iconBg: 'rgba(255,193,7,0.15)', value: '96%', label: 'Customer satisfaction' },
+      { icon: '🛡️', iconBg: 'rgba(0,149,192,0.1)', value: 'SOC 2', label: 'Security compliant' },
+    ]);
   }
 }

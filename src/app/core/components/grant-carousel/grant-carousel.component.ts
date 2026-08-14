@@ -38,7 +38,8 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
   private timer: any;
   private resumeTimeout: any;
 
-  readonly VISIBLE_COUNT = 3;
+  // 3 se 4 kar diya — ab ek baar mein 4 cards dikhenge
+  readonly VISIBLE_COUNT = 4;
 
   // ── DataService se aane wala data ─────────────────────────────
   stats: { icon: string; value: string; label: string; bg: string }[] = [];

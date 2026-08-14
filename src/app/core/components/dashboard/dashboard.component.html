@@ -1,47 +1,75 @@
 <app-navbar></app-navbar>
-
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
       <div class="badge">
-        <span class="badge-icon">🏆</span>
-        <span class="badge-text">$1.1B+ in grants managed</span>
+        <span class="badge-icon">✨</span>
+        <span class="badge-text">$1.1B+ in grants unlocked by our community</span>
       </div>
 
       <h1 class="headline">
-        Grant work was<br />
-        <span class="headline-gradient">scattered.</span>
-        Now it's<br />a system.
+        Find better grants.<br />
+        Work smarter.<br />
+        Create real <span class="headline-gradient">impact.</span>
       </h1>
 
       <p class="subtext">
-        GrantFlow brings discovery, applications, budgets, and team collaboration into one
-        intelligent platform — so you can focus on your mission, not your spreadsheets.
+        GrantFlow is your all-in-one solution to discover opportunities, manage applications,
+        track progress, and collaborate with your team — all in one place.
       </p>
 
+      <div class="hero-highlights">
+        <div class="highlight-item" *ngFor="let h of heroHighlights">
+          <span class="highlight-icon">{{ h.icon }}</span>
+          <div>
+            <div class="highlight-title">{{ h.title }}</div>
+            <div class="highlight-desc">{{ h.desc }}</div>
+          </div>
+        </div>
+      </div>
+
       <div class="cta-row">
-        <a href="#" class="pill-btn pill-btn--primary">Sign-Up for Free →</a>
-        <a href="#" class="pill-btn pill-btn--outline">Watch demo</a>
+        <a href="#" class="pill-btn pill-btn--primary">Start Your Free Trial →</a>
+        <a href="#" class="pill-btn pill-btn--outline">
+          <span class="play-icon">▶</span> See it in action
+        </a>
       </div>
 
       <div class="trust">
-        <div class="stars"></div>
-        <span class="trust-text">4.9 / 5 on G2 &nbsp;·&nbsp; 5,500+ organizations</span>
+        <span class="trust-item"><span class="trust-check">✓</span> 14-day free trial</span>
+        <span class="trust-item"><span class="trust-check">✓</span> No credit card required</span>
+        <span class="trust-item"><span class="trust-check">✓</span> Cancel anytime</span>
       </div>
     </div>
 
     <div class="hero-right">
-      <!-- <img src="../../../../assets/Screenshot 2026-08-07 111801.png" alt="Dashboard" class="hero-image" /> -->
       <img
-        src="https://images.unsplash.com/photo-1532102235608-dc8fc689c9ab?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Dashboard"
+        src="/assets/Hero sectiom image .png"
+        alt="GrantFlow Dashboard"
         class="hero-image"
       />
     </div>
   </div>
-</section>
 
-<section class="trust-bar">
+  <!-- Yeh SIRF ek baar hai - stats bar -->
+  <div class="hero-stats-bar">
+    <div class="hero-stat" *ngFor="let s of heroStats">
+      <span class="hero-stat__icon" [style.background]="s.iconBg">{{ s.icon }}</span>
+      <div>
+        <div class="hero-stat__value">{{ s.value }}</div>
+        <div class="hero-stat__label">{{ s.label }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-logos">
+    <p class="hero-logos__label">Trusted by mission-driven organizations worldwide</p>
+    <div class="hero-logos__row">
+      <span *ngFor="let org of orgs">{{ org }}</span>
+    </div>
+  </div>
+</section>
+<!-- <section class="trust-bar">
   <p class="trust-bar__label">TRUSTED BY 5,500+ ORGANIZATIONS ACROSS THE UNITED STATES</p>
 
   <div class="trust-bar__orgs">
@@ -60,7 +88,7 @@
       <span class="rating-pill__score">4.9</span>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="features">
   <div class="features-inner">
@@ -179,7 +207,6 @@
   <div class="team-collab-inner">
     <div class="collab-card">
       <!-- Glow blob -->
-      <div class="collab-glow"></div>
 
       <!-- Left: icon -->
       <div class="collab-icon-wrap">
@@ -233,10 +260,9 @@
     </div>
   </div>
 
-  <section class="gwi-section" *ngIf="gwi as g">
+  <div class="gwi-section" *ngIf="gwi as g">
     <div class="gwi-inner">
       <div class="gwi-card">
-        <!-- LEFT: icon + title + desc -->
         <div class="gwi-left">
           <div class="gwi-icon">
             <img src="../../../../assets/gwi_sign.png" alt="" />
@@ -248,9 +274,6 @@
           </div>
         </div>
 
-        <div class="gwi-divider"></div>
-
-        <!-- MIDDLE: checklist -->
         <div class="gwi-checklist">
           <div class="gwi-check-item" *ngFor="let item of g.checklist">
             <span class="gwi-check-icon">✓</span>
@@ -258,22 +281,17 @@
           </div>
         </div>
 
-        <div class="gwi-divider"></div>
-
-        <!-- RIGHT: tokens -->
         <div class="gwi-tokens">
           <h4 class="gwi-tokens-title">{{ g.tokensTitle }}</h4>
           <div class="gwi-tokens-row">
             <img src="../../../../assets/10mv2.webp" alt="" />
             <p class="gwi-tokens-desc">{{ g.tokensDesc }}</p>
           </div>
+          <button class="gwi-cta">{{ g.ctaLabel }} →</button>
         </div>
-
-        <!-- CTA -->
-        <button class="gwi-cta">{{ g.ctaLabel }} →</button>
       </div>
     </div>
-  </section>
+  </div>
 </section>
 
 <section class="platform-features">

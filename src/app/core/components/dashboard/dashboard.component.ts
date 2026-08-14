@@ -13,6 +13,8 @@ import {
   DonutSegment,
   FeaturePill,
   GwiData,
+  HeroHighlight,
+  HeroStat,
   ManageStat,
   PipelineItem,
   PipelineStep,
@@ -67,11 +69,12 @@ export class DashboardComponent implements OnInit {
   actions: ActionItem[] = [];
   grantSteps: PipelineStep[] = [];
   donorSteps: PipelineStep[] = [];
+  heroHighlights: HeroHighlight[] = [];
+  heroStats: HeroStat[] = [];
 
   // ── Sirf UI state ──────────────────────────────────────────────
   readonly stars = [1, 2, 3, 4, 5];
   activeTab: TabId = 'discover';
-
 
   gwi: GwiData | null = null;
 
@@ -101,6 +104,8 @@ export class DashboardComponent implements OnInit {
     this.dataService.getGrantSteps().subscribe((v) => (this.grantSteps = v));
     this.dataService.getDonorSteps().subscribe((v) => (this.donorSteps = v));
     this.dataService.getGwiData().subscribe((v) => (this.gwi = v));
+    this.dataService.getHeroHighlights().subscribe((v) => (this.heroHighlights = v));
+    this.dataService.getHeroStats().subscribe((v) => (this.heroStats = v));
 
     this.dataService.getDonutSegments().subscribe((segments: DonutSegment[]) => {
       let offset = 0;
