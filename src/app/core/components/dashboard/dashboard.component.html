@@ -1,94 +1,8 @@
 <app-navbar></app-navbar>
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="badge">
-        <span class="badge-icon">✨</span>
-        <span class="badge-text">$1.1B+ in grants unlocked by our community</span>
-      </div>
+<app-hero-section></app-hero-section>
 
-      <h1 class="headline">
-        Find better grants.<br />
-        Work smarter.<br />
-        Create real <span class="headline-gradient">impact.</span>
-      </h1>
 
-      <p class="subtext">
-        GrantFlow is your all-in-one solution to discover opportunities, manage applications,
-        track progress, and collaborate with your team — all in one place.
-      </p>
 
-      <div class="hero-highlights">
-        <div class="highlight-item" *ngFor="let h of heroHighlights">
-          <span class="highlight-icon">{{ h.icon }}</span>
-          <div>
-            <div class="highlight-title">{{ h.title }}</div>
-            <div class="highlight-desc">{{ h.desc }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cta-row">
-        <a href="#" class="pill-btn pill-btn--primary">Start Your Free Trial →</a>
-        <a href="#" class="pill-btn pill-btn--outline">
-          <span class="play-icon">▶</span> See it in action
-        </a>
-      </div>
-
-      <div class="trust">
-        <span class="trust-item"><span class="trust-check">✓</span> 14-day free trial</span>
-        <span class="trust-item"><span class="trust-check">✓</span> No credit card required</span>
-        <span class="trust-item"><span class="trust-check">✓</span> Cancel anytime</span>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <img
-        src="/assets/Hero sectiom image .png"
-        alt="GrantFlow Dashboard"
-        class="hero-image"
-      />
-    </div>
-  </div>
-
-  <!-- Yeh SIRF ek baar hai - stats bar -->
-  <div class="hero-stats-bar">
-    <div class="hero-stat" *ngFor="let s of heroStats">
-      <span class="hero-stat__icon" [style.background]="s.iconBg">{{ s.icon }}</span>
-      <div>
-        <div class="hero-stat__value">{{ s.value }}</div>
-        <div class="hero-stat__label">{{ s.label }}</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-logos">
-    <p class="hero-logos__label">Trusted by mission-driven organizations worldwide</p>
-    <div class="hero-logos__row">
-      <span *ngFor="let org of orgs">{{ org }}</span>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-bar">
-  <p class="trust-bar__label">TRUSTED BY 5,500+ ORGANIZATIONS ACROSS THE UNITED STATES</p>
-
-  <div class="trust-bar__orgs">
-    <span *ngFor="let org of orgs">{{ org }}</span>
-  </div>
-
-  <div class="trust-bar__ratings">
-    <div class="rating-pill">
-      <span class="rating-pill__name">Capterra</span>
-      <span class="rating-pill__stars">★★★★★</span>
-      <span class="rating-pill__score">5.0</span>
-    </div>
-    <div class="rating-pill">
-      <span class="rating-pill__name">G2</span>
-      <span class="rating-pill__stars">★★★★★</span>
-      <span class="rating-pill__score">4.9</span>
-    </div>
-  </div>
-</section> -->
 
 <section class="features">
   <div class="features-inner">
@@ -136,18 +50,14 @@
       <span class="section-label">HOW IT WORKS</span>
       <h2 class="lifecycle-headline">One platform for your entire grant lifecycle</h2>
       <p class="lifecycle-sub">
-        From prospect research to award reporting — GrantFlow handles it all.
+        From prospect research to award reporting — FFNs handles it all.
       </p>
     </div>
 
     <!-- Tab pills -->
     <div class="tab-row">
-      <button
-        *ngFor="let tab of tabs"
-        class="tab-pill"
-        [class.tab-pill--active]="activeTab === tab.id"
-        (click)="setTab(tab.id)"
-      >
+      <button *ngFor="let tab of tabs" class="tab-pill" [class.tab-pill--active]="activeTab === tab.id"
+        (click)="setTab(tab.id)">
         {{ tab.label }}
       </button>
     </div>
@@ -162,42 +72,24 @@
         <ul class="feature-list">
           <li *ngFor="let f of content.features" class="feature-item">
             <span class="feature-check">✓</span>
-            <span
-              ><strong>{{ f.title }}</strong> {{ f.desc }}</span
-            >
+            <span><strong>{{ f.title }}</strong> {{ f.desc }}</span>
           </li>
         </ul>
 
         <button class="cta-btn">{{ content.cta }} →</button>
       </div>
       <div class="content-right">
-        <img
-          *ngIf="activeTab === 'discover'"
-          src="../../../../assets/Screenshot 2026-08-13 115804.png"
-          alt="Discover tab"
-          class="tab-screenshot"
-        />
+        <img *ngIf="activeTab === 'discover'" src="../../../../assets/Screenshot 2026-08-13 115804.png"
+          alt="Discover tab" class="tab-screenshot" />
 
-        <img
-          *ngIf="activeTab === 'apply'"
-          src="../../../../assets/Screenshot 2026-08-13 115814.png"
-          alt="Apply tab"
-          class="tab-screenshot"
-        />
+        <img *ngIf="activeTab === 'apply'" src="../../../../assets/Screenshot 2026-08-13 115814.png" alt="Apply tab"
+          class="tab-screenshot" />
 
-        <img
-          *ngIf="activeTab === 'manage'"
-          src="../../../../assets/Screenshot 2026-08-13 115822.png"
-          alt="Manage tab"
-          class="tab-screenshot"
-        />
+        <img *ngIf="activeTab === 'manage'" src="../../../../assets/Screenshot 2026-08-13 115822.png" alt="Manage tab"
+          class="tab-screenshot" />
 
-        <img
-          *ngIf="activeTab === 'collaborate'"
-          src="../../../../assets/Screenshot 2026-08-13 115829.png"
-          alt="Collaborate tab"
-          class="tab-screenshot"
-        />
+        <img *ngIf="activeTab === 'collaborate'" src="../../../../assets/Screenshot 2026-08-13 115829.png"
+          alt="Collaborate tab" class="tab-screenshot" />
       </div>
     </div>
   </div>
@@ -214,14 +106,8 @@
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
             <circle cx="14" cy="13" r="5" fill="white" opacity="0.95" />
             <circle cx="26" cy="13" r="5" fill="white" opacity="0.75" />
-            <path
-              d="M4 30c0-5.523 4.477-10 10-10h12c5.523 0 10 4.477 10 10"
-              stroke="white"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              fill="none"
-              opacity="0.95"
-            />
+            <path d="M4 30c0-5.523 4.477-10 10-10h12c5.523 0 10 4.477 10 10" stroke="white" stroke-width="2.5"
+              stroke-linecap="round" fill="none" opacity="0.95" />
           </svg>
         </div>
 
@@ -246,12 +132,8 @@
           workspace.
         </p>
         <div class="collab-actions">
-          <button
-            *ngFor="let a of actions; let i = index"
-            class="btn-lg"
-            [class.btn-primary]="i === 0"
-            [class.btn-outline]="i !== 0"
-          >
+          <button *ngFor="let a of actions; let i = index" class="btn-lg" [class.btn-primary]="i === 0"
+            [class.btn-outline]="i !== 0">
             <span class="action-btn__icon">{{ a.icon }}</span>
             {{ a.label }} →
           </button>
@@ -319,47 +201,165 @@
   </div>
 </section>
 
-<!-- <section class="pipelines">
-  <div class="pipelines-inner">
-    <div class="pipelines-header">
-      <span class="section-label">FUNDING PIPELINES</span>
-      <h2 class="pipelines-headline">Funding Pipelines</h2>
-      <p class="pipelines-sub">
-        Track every funding opportunity from first interest through long-term success.
+<section class="funder-search">
+  <div class="funder-inner">
+
+    <div class="funder-bg-dots"></div>
+    <div class="funder-bg-circles">
+      <span class="circle circle--lg"></span>
+      <span class="circle circle--sm"></span>
+    </div>
+
+    <div class="funder-header">
+      <h2 class="funder-headline">
+        Better funder data.<br />
+        Better <span class="grad-text">matches</span>.
+      </h2>
+      <p class="funder-sub">
+        Search our curated database of
+        <span class="link">400,000+ active funders</span> with richer profiles,
+        <span class="link">giving histories</span>, and
+        <span class="link link--ai">AI-matched</span> relevance scores.
       </p>
     </div>
 
-    <div class="pipelines-grid">
-      <div class="pipeline-card">
-        <h3 class="pipeline-card__title">Grant Funding Pipeline</h3>
-        <div class="pipeline-steps">
-          <div *ngFor="let s of grantSteps; let i = index" class="step">
-            <div class="step__bubble" [style.background]="s.color">{{ i + 1 }}</div>
-            <div class="step__label">{{ s.label }}</div>
-          </div>
-        </div>
-        <div class="pipeline-progress">
-          <div *ngFor="let s of grantSteps" class="progress-seg" [style.background]="s.color"></div>
-        </div>
-        <button class="btn-primary btn-lg">Explore Grant Pipeline →</button>
+    <!-- Search box with selected chips -->
+    <div class="search-box" [class.search-box--focused]="focused">
+      <div class="search-chips" *ngIf="selectedFocusAreas.length || selectedCountries.length">
+        <span class="chip chip--focus" *ngFor="let f of selectedFocusAreas">
+          🎯 {{ f }}
+          <button type="button" class="chip-x" (click)="toggleFocus(f)">×</button>
+        </span>
+        <span class="chip chip--country" *ngFor="let c of selectedCountries">
+          🌍 {{ c }}
+          <button type="button" class="chip-x" (click)="toggleCountry(c)">×</button>
+        </span>
+        <button type="button" class="chip-clear" (click)="clearAll()">Clear all</button>
       </div>
-      <div class="pipeline-card">
-        <h3 class="pipeline-card__title">Donor Prospecting Pipeline</h3>
-        <div class="pipeline-steps">
-          <div *ngFor="let s of donorSteps; let i = index" class="step">
-            <div class="step__bubble" [style.background]="s.color">{{ i + 1 }}</div>
-            <div class="step__label">{{ s.label }}</div>
-          </div>
-        </div>
-        <div class="pipeline-progress">
-          <div *ngFor="let s of donorSteps" class="progress-seg" [style.background]="s.color"></div>
-        </div>
-        <button class="btn-primary btn-lg">Explore Donor Pipeline →</button>
+
+      <div class="search-row">
+        <span class="search-icon-wrap"><span class="search-icon">🔍</span></span>
+        <input class="search-input" type="text" placeholder="Search funder name, focus area, or keyword..."
+          [(ngModel)]="query" (focus)="focused = true" (blur)="focused = false" />
+        <button class="search-btn">→</button>
       </div>
     </div>
+
+    <div class="loading" *ngIf="loading">Loading funders...</div>
+
+    <div class="filter-grid" *ngIf="!loading">
+
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <span class="filter-icon filter-icon--focus">🎯</span>
+          <span class="filter-title">What focus area are you interested in?</span>
+          <span class="filter-count">{{ selectedFocusAreas.length }}/3</span>
+        </div>
+        <div class="filter-tags">
+          <button *ngFor="let tag of visibleFocusAreas" class="ftag ftag--focus"
+            [class.ftag--active]="selectedFocusAreas.includes(tag)" [class.ftag--disabled]="isFocusDisabled(tag)"
+            [disabled]="isFocusDisabled(tag)" (click)="toggleFocus(tag)">
+            <span *ngIf="selectedFocusAreas.includes(tag)" class="ftag-check">✓</span>
+            {{ tag }}
+          </button>
+          <button *ngIf="hasMoreFocusAreas" class="ftag ftag--more" (click)="showMoreFocusAreas()">
+            More +
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <span class="filter-icon filter-icon--state">🌍</span>
+          <span class="filter-title">What country are you interested in?</span>
+          <span class="filter-count" *ngIf="selectedCountries.length">{{ selectedCountries.length }} selected</span>
+        </div>
+        <div class="filter-tags">
+          <button *ngFor="let c of visibleCountries" class="ftag ftag--state"
+            [class.ftag--active]="selectedCountries.includes(c)" (click)="toggleCountry(c)">
+            <span *ngIf="selectedCountries.includes(c)" class="ftag-check">✓</span>
+            {{ c }}
+          </button>
+          <button *ngIf="hasMoreCountries" class="ftag ftag--more" (click)="showMoreCountries()">
+            More +
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="funder-trust-row" *ngIf="!loading">
+      <div class="trust-item"><span class="trust-icon">🛡️</span> Trusted by 10,000+ nonprofits</div>
+      <div class="trust-item"><span class="trust-icon">🔒</span> Data verified &amp; updated daily</div>
+      <div class="trust-item"><span class="trust-icon">✨</span> Powered by AI matching</div>
+    </div>
+
   </div>
-</section> -->
+</section>
 
 
+<section class="testimonials">
+  <div class="testimonials-inner">
 
-<div></div>
+    <!-- Header -->
+    <div class="testimonials-header">
+      <span class="section-label">TESTIMONIALS</span>
+      <h2 class="testimonials-headline">Loved by development teams nationwide</h2>
+    </div>
+
+    <!-- Loading -->
+    <div class="t-loading" *ngIf="loading">Loading testimonials...</div>
+
+    <ng-container *ngIf="!loading">
+
+      <!-- Featured blue card -->
+      <div class="featured-card" [class.card-anim]="animating">
+        <div class="featured-card__glow"></div>
+        <div class="featured-card__quote-mark">"</div>
+
+        <p class="featured-card__text">{{ featured.quote }}</p>
+
+        <div class="featured-card__author">
+          <div class="author-avatar" [style.background]="featured.color">
+            {{ featured.initials }}
+          </div>
+          <div>
+            <div class="author-name">{{ featured.name }}</div>
+            <div class="author-role">{{ featured.role }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 review cards -->
+      <div class="cards-row">
+        <div *ngFor="let t of visibleCards" class="review-card" [class.card-anim]="animating">
+
+          <div class="review-card__stars">
+            <span *ngFor="let s of [1,2,3,4,5]">★</span>
+          </div>
+
+          <p class="review-card__text">"{{ t.quote }}"</p>
+
+          <div class="review-card__author">
+            <div class="review-avatar" [style.background]="t.color">
+              {{ t.initials }}
+            </div>
+            <div>
+              <div class="review-name">{{ t.name }}</div>
+              <div class="review-role">{{ t.role }}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation arrows -->
+      <div class="nav-arrows">
+        <button class="nav-arrow" (click)="prev()">&#8249;</button>
+        <button class="nav-arrow" (click)="next()">&#8250;</button>
+      </div>
+
+    </ng-container>
+
+  </div>
+</section>

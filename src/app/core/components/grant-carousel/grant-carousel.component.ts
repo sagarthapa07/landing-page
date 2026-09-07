@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { forkJoin } from 'rxjs';
@@ -23,7 +23,7 @@ import { MetaField, ShowcaseCard } from '../../../dataType';
     ]),
   ],
 })
-export class GrantCarouselComponent implements OnInit, OnDestroy {
+export class GrantCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: 'grants' | 'resources' = 'grants';
 
   grantStart = 0;
@@ -37,9 +37,11 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private timer: any;
   private resumeTimeout: any;
+  private resizeDebounce: any;
+  private resizeObserver?: ResizeObserver;
 
-  // 3 se 4 kar diya — ab ek baar mein 4 cards dikhenge
-  readonly VISIBLE_COUNT = 4;
+  // Ab yeh FIXED nahi hai — screen width ke hisaab se change hota hai.
+  VISIBLE_COUNT = 4;
 
   // ── DataService se aane wala data ─────────────────────────────
   stats: { icon: string; value: string; label: string; bg: string }[] = [];
@@ -47,6 +49,51 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
   resourceCards: ShowcaseCard[] = [];
 
   constructor(private dataService: DataService) {}
+
+  // FIX: pehle sirf window 'resize' event pe recalculate hota tha — lekin
+  // page ki height data load hone ke baad badalti hai (cards + stats bar
+  // add hote hain), jisse scrollbar aa jaata hai aur document ka clientWidth
+  // ghat jaata hai — bina kisi window resize ke. Us case mein VISIBLE_COUNT
+  // stale reh jaata tha (load pe 4 hi rehta, jabki CSS grid 3 columns ki thi
+  // → 4th card neeche wrap ho jaata tha).
+  //
+  // ResizeObserver seedha <html> element ka size observe karta hai, isliye
+  // yeh window resize AUR content-load-ki-wajah-se-scrollbar-aana, dono
+  // cases mein automatically fire hota hai.
+  private startResizeObserver(): void {
+    if (!isPlatformBrowser(this.platformId) || typeof ResizeObserver === 'undefined') return;
+
+    this.resizeObserver = new ResizeObserver(() => {
+      clearTimeout(this.resizeDebounce);
+      this.resizeDebounce = setTimeout(() => {
+        const prev = this.VISIBLE_COUNT;
+        this.updateVisibleCount();
+        // Sirf tab hi cards re-key karo jab count actually badla ho —
+        // warna har resize par animation bewajah replay hoga.
+        if (prev !== this.VISIBLE_COUNT) {
+          this.animKey++;
+        }
+      }, 120);
+    });
+    this.resizeObserver.observe(document.documentElement);
+  }
+
+  private updateVisibleCount(): void {
+    // FIX: window.innerWidth scrollbar ki width bhi include karta hai,
+    // jabki SCSS ke @media queries actual CSS viewport width (scrollbar minus)
+    // ke against evaluate hote hain — jo document.documentElement.clientWidth
+    // deta hai. innerWidth use karne se boundary (~1400px, ~1100px) ke paas
+    // JS aur CSS ek doosre se disagree kar jaate the — isi wajah se load pe
+    // 4 cards render hote the jabki grid sirf 3 columns dikha raha tha.
+    const w = document.documentElement.clientWidth;
+    if (w > 1400) {
+      this.VISIBLE_COUNT = 4; // large desktop
+    } else if (w > 1100) {
+      this.VISIBLE_COUNT = 3; // laptop
+    } else {
+      this.VISIBLE_COUNT = 2; // tablet se mobile tak — hamesha 2, size CSS mein chota
+    }
+  }
 
   get activeList(): ShowcaseCard[] {
     return this.activeTab === 'grants' ? this.grantCards : this.resourceCards;
@@ -59,9 +106,10 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
   get visibleCards(): ShowcaseCard[] {
     const list = this.activeList;
     if (!list.length) return [];
+    const count = Math.min(this.VISIBLE_COUNT, list.length);
     const start = this.activeStart;
     const out: ShowcaseCard[] = [];
-    for (let i = 0; i < this.VISIBLE_COUNT; i++) {
+    for (let i = 0; i < count; i++) {
       out.push(list[(start + i) % list.length]);
     }
     return out;
@@ -74,6 +122,10 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.updateVisibleCount();
+    }
+
     forkJoin({
       grants: this.dataService.getGrants(),
       resources: this.dataService.getResources(),
@@ -95,7 +147,7 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
           { icon: '📍', label: 'LOCATION', value: g.location },
         ] as MetaField[],
         primaryBtnLabel: 'View full grant details',
-        secondaryBtnLabel: 'Save to pipeline',
+        secondaryBtnLabel: 'Save to Calender',
       }));
 
       this.resourceCards = resources.map((r) => ({
@@ -118,16 +170,35 @@ export class GrantCarouselComponent implements OnInit, OnDestroy {
 
       this.stats = stats;
 
-      // Data aane ke baad hi timer start karo, warna length 0 pe hi timer chalu ho jayega
       if (isPlatformBrowser(this.platformId)) {
+        // FIX: data set hone ke turant baad DOM update hone se pehle recompute
+        // karna kaafi nahi — ek frame wait karo taaki cards + stats bar render
+        // ho jayein aur scrollbar (agar aana hai) aa jaye, USKE BAAD width
+        // measure karo. Warna VISIBLE_COUNT wahi purana (pre-scrollbar) reh
+        // jaata hai.
+        requestAnimationFrame(() => {
+          const prev = this.VISIBLE_COUNT;
+          this.updateVisibleCount();
+          if (prev !== this.VISIBLE_COUNT) {
+            this.animKey++;
+          }
+        });
+
+        // Data aane ke baad hi timer start karo, warna length 0 pe hi timer chalu ho jayega
         this.startTimer();
       }
     });
   }
 
+  ngAfterViewInit(): void {
+    this.startResizeObserver();
+  }
+
   ngOnDestroy(): void {
     this.clearTimer();
     clearTimeout(this.resumeTimeout);
+    clearTimeout(this.resizeDebounce);
+    this.resizeObserver?.disconnect();
   }
 
   setTab(tab: 'grants' | 'resources'): void {

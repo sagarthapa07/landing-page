@@ -1,0 +1,55 @@
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="badge">
+                <span class="badge-icon">✨</span>
+                <span class="badge-text">$1.1B+ in grants unlocked by our community</span>
+            </div>
+
+            <h1 class="headline">
+                Find better grants.<br />
+                Work smarter.<br />
+                Create real <span class="headline-gradient">impact.</span>
+            </h1>
+
+            <p class="subtext">
+                FFNs is your all-in-one solution to discover opportunities, manage applications,
+                track progress, and collaborate with your team — all in one place.
+            </p>
+
+            <div class="hero-highlights">
+                <div class="highlight-item" *ngFor="let h of heroHighlights">
+                    <span class="highlight-icon">{{ h.icon }}</span>
+                    <div>
+                        <div class="highlight-title">{{ h.title }}</div>
+                        <div class="highlight-desc">{{ h.desc }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-row">
+                <a href="#" class="pill-btn pill-btn--primary">Start Your Free Trial →</a>
+                <a href="#" class="pill-btn pill-btn--outline">
+                    <span class="play-icon">▶</span> See it in action
+                </a>
+            </div>
+
+            <div class="trust">
+                <span class="trust-item"><span class="trust-check">✓</span> free trial</span>
+                <span class="trust-item"><span class="trust-check">✓</span> No credit card required</span>
+                <span class="trust-item"><span class="trust-check">✓</span> Cancel anytime</span>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <img src="/assets/Hero sectiom image .png" alt="FFNs Dashboard" class="hero-image" />
+        </div>
+    </div>
+
+    <div class="hero-logos">
+        <p class="hero-logos__label">Trusted by mission-driven organizations worldwide</p>
+        <div class="hero-logos__row">
+            <span *ngFor="let org of orgs">{{ org }}</span>
+        </div>
+    </div>
+</section>

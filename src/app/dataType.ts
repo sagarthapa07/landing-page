@@ -179,3 +179,30 @@ export interface HeroStat {
   value: string;
   label: string;
 }
+export interface Funder {
+  name: string;
+  initials: string;
+  color: string;
+  area: string;
+  range: string;
+  match: string;
+  tags: string[];
+  state: string;
+  focus: string[];
+}
+
+export interface Testimonial {
+  name: string;
+  initials: string;
+  color: string;
+  role: string;
+  quote: string;
+}
+export interface Testimonial {
+  name: string;
+  initials: string;
+  color: string;
+  role: string;
+  quote: string;
+  avatar?: string;
+}

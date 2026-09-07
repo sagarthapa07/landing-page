@@ -6,10 +6,6 @@
   <div class="carousel-inner">
 
     <div class="carousel-header">
-      <span class="section-label">
-        <span class="section-label__dot"></span>
-        LIVE MATCHES
-      </span>
       <h2 class="carousel-headline">Grants &amp; resources matched<br>to your organization</h2>
       <p class="carousel-sub">
         Real opportunities and guides from our database, matched to a sample nonprofit profile.
@@ -18,16 +14,10 @@
 
     <!-- Tab switcher — ab yeh actually content switch karta hai -->
     <div class="tab-switcher">
-      <button
-        class="tab-btn"
-        [class.tab-btn--active]="activeTab === 'grants'"
-        (click)="setTab('grants')">
+      <button class="tab-btn" [class.tab-btn--active]="activeTab === 'grants'" (click)="setTab('grants')">
         <span class="tab-icon">🎯</span> Grants
       </button>
-      <button
-        class="tab-btn"
-        [class.tab-btn--active]="activeTab === 'resources'"
-        (click)="setTab('resources')">
+      <button class="tab-btn" [class.tab-btn--active]="activeTab === 'resources'" (click)="setTab('resources')">
         <span class="tab-icon">📚</span> Resources
       </button>
     </div>
@@ -37,20 +27,13 @@
       <button class="arrow-btn arrow-btn--left" (click)="prev()">&#8249;</button>
 
       <div class="cards-wrap">
-        <div
-          class="grant-card"
-          [@cardEnter]
-          *ngFor="let card of visibleCards; trackBy: trackByCard">
+        <div class="grant-card" [@cardEnter] *ngFor="let card of visibleCards; trackBy: trackByCard">
 
           <div class="grant-card__top">
-            <span class="category-badge"
-              [style.color]="card.categoryColor"
-              [style.background]="card.categoryBg">
+            <span class="category-badge" [style.color]="card.categoryColor" [style.background]="card.categoryBg">
               {{ card.category }}
             </span>
-            <span
-              class="match-badge"
-              [class.resource-type-badge]="!card.badgeRightIsMatch">
+            <span class="match-badge" [class.resource-type-badge]="!card.badgeRightIsMatch">
               {{ card.badgeRight }}
             </span>
           </div>
@@ -79,10 +62,7 @@
 
     <!-- Dots: poori list ke items, active window ka start highlight -->
     <div class="dots">
-      <span
-        *ngFor="let card of activeList; let i = index"
-        class="dot"
-        [class.dot--active]="i === activeStart"
+      <span *ngFor="let card of activeList; let i = index" class="dot" [class.dot--active]="i === activeStart"
         (click)="goTo(i)">
       </span>
     </div>
@@ -99,4 +79,4 @@
     </div>
 
   </div>
-</section>
+</section> 
