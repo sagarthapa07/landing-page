@@ -12,9 +12,8 @@ import {
   HeroStat,
   Testimonial,
   Funder,
-} from '../../dataType';
-
-import {
+  WhyFeature,
+  GuidanceData,
   ActivityItem,
   ChartLegendItem,
   CommentItem,
@@ -28,6 +27,8 @@ import {
   TabDefinition,
   TabId,
   TableRow,
+  CtaData,
+  FooterData,
 } from '../../dataType';
 
 @Injectable({
@@ -919,5 +920,136 @@ export class DataService {
           "GrantFlow's funder intelligence is unmatched. We discovered funding sources we never would have found on our own.",
       },
     ]);
+  }
+
+  getWhyFeatures(): Observable<WhyFeature[]> {
+    return of([
+      {
+        icon: '⚡',
+        title: 'Onboard in 30 minutes',
+        desc: 'Import your existing grants, set up your profile, and start discovering new opportunities on day one. No IT team required.',
+      },
+      {
+        icon: '🔗',
+        title: '80+ native integrations',
+        desc: 'Connect Salesforce, Raiser’s Edge, QuickBooks, Google Workspace and more. Your data stays in sync, always.',
+      },
+      {
+        icon: '🛡️',
+        title: 'SOC 2 Type II certified',
+        desc: 'Bank-grade encryption, SSO, MFA, and annual third-party audits. Your donor and funder data is safe with us.',
+      },
+      {
+        icon: '🎓',
+        title: 'Free training & support',
+        desc: 'Live onboarding sessions, a library of 200+ video tutorials, and a dedicated customer success manager — all included.',
+      },
+    ]);
+  }
+  getGuidanceData(): Observable<GuidanceData> {
+    return of({
+      headlineTop: 'Guidance for a shifting',
+      headlineBottom: 'grants landscape.',
+      ctaLabel: 'Browse all resources',
+      featured: {
+        badge: 'REPORT',
+        title: 'State of Nonprofit Grant Funding: 2026 Benchmarks',
+        desc: 'Data from 2,000+ organizations on win rates, pipeline health, and the impact of AI on grant writing.',
+        image: 'https://picsum.photos/seed/grants-report/900/800',
+      },
+      items: [
+        {
+          tag: 'EVENT',
+          tagColor: '#C0560A',
+          tagBg: '#FFF0E8',
+          title: 'Live Webinar: Federal Grant Strategy in a Shifting Landscape',
+          desc: 'Join 500+ development leaders for a live Q&A with federal funding experts.',
+          image: 'https://picsum.photos/seed/grants-webinar/300/300',
+        },
+        {
+          tag: 'TEMPLATE',
+          tagColor: '#198754',
+          tagBg: '#D1E7DD',
+          title: 'Logic Model & Budget Template Pack — Free Download',
+          desc: 'Fully editable templates used by 3,000+ nonprofits to streamline applications.',
+          image: 'https://picsum.photos/seed/grants-template/300/300',
+        },
+        {
+          tag: 'GUIDE',
+          tagColor: '#0095C0',
+          tagBg: '#E7F9FF',
+          title: 'How to Build a 7-Figure Grant Pipeline from Scratch',
+          desc: 'Step-by-step guide from DDs who each secured $1M+ in year one.',
+          image: 'https://picsum.photos/seed/grants-guide/300/300',
+        },
+      ],
+      newsletterTitle: 'Stay ahead of funding trends',
+      newsletterDesc: 'Weekly grant alerts and expert tips, free.',
+      placeholder: 'your@email.org',
+    });
+  }
+  getCtaData(): Observable<CtaData> {
+    return of({
+      headline: 'Ready to win more grants?',
+      description:
+        'Join 5,500+ organizations that use GrantFlow to discover, apply, and manage their entire grant lifecycle in one place.',
+      primaryLabel: 'Start free 14-day trial',
+      secondaryLabel: 'Schedule a demo',
+      notes: ['No credit card required', 'Cancel anytime', 'Free onboarding included'],
+    });
+  }
+
+  getFooterData(): Observable<FooterData> {
+    return of({
+      brandInitial: 'G',
+      brandName: 'GrantFlow',
+      tagline: 'The modern grants management platform for nonprofits and foundations.',
+      socials: [
+        { label: 'X', icon: '𝕏', url: '#' },
+        { label: 'LinkedIn', icon: 'in', url: '#' },
+        { label: 'YouTube', icon: '▶', url: '#' },
+      ],
+      columns: [
+        {
+          title: 'PLATFORM',
+          links: [
+            'Grant Discovery',
+            'Application Tracking',
+            'Pipeline Management',
+            'Reporting & Analytics',
+            'Integrations',
+          ],
+        },
+        {
+          title: 'WHY US',
+          links: [
+            'Customer Stories',
+            'ROI Calculator',
+            'vs. Salesforce',
+            "vs. Raiser's Edge",
+            'Security',
+          ],
+        },
+        {
+          title: 'RESOURCES',
+          links: ['Blog', 'Guides & Reports', 'Webinars', 'Grant Glossary', 'API Docs'],
+        },
+        {
+          title: 'SOLUTIONS',
+          links: [
+            'Small Nonprofits',
+            'Large Organizations',
+            'Community Foundations',
+            'Government Agencies',
+            'Consultants',
+          ],
+        },
+        {
+          title: 'COMPANY',
+          links: ['About Us', 'Careers', 'Press', 'Partners', 'Contact'],
+        },
+      ],
+      legal: ['Privacy Policy', 'Terms of Service', 'Cookie Settings'],
+    });
   }
 }

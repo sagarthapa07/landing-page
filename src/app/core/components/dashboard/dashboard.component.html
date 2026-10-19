@@ -363,3 +363,144 @@
 
   </div>
 </section>
+
+<section class="why">
+  <div class="why-inner">
+    <span class="why-tag">WHY GRANTFLOW</span>
+    <h2 class="why-headline">Everything your development office needs</h2>
+
+    <div class="why-grid">
+      <div class="why-card" *ngFor="let w of whyFeatures">
+        <div class="why-card__icon">{{ w.icon }}</div>
+        <h3 class="why-card__title">{{ w.title }}</h3>
+        <p class="why-card__desc">{{ w.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guidance" *ngIf="guidance as g">
+  <div class="guidance-inner">
+    <!-- Header -->
+    <div class="guidance-header">
+      <h2 class="guidance-headline">
+        {{ g.headlineTop }}<br />
+        {{ g.headlineBottom }}
+      </h2>
+      <button class="guidance-cta" type="button">{{ g.ctaLabel }} →</button>
+    </div>
+
+    <div class="guidance-grid">
+      <!-- LEFT: featured card -->
+      <article class="guidance-featured">
+        <img class="guidance-featured__img" [src]="g.featured.image" [alt]="g.featured.title" />
+        <div class="guidance-featured__overlay"></div>
+        <span class="guidance-featured__badge">{{ g.featured.badge }}</span>
+        <div class="guidance-featured__content">
+          <h3 class="guidance-featured__title">{{ g.featured.title }}</h3>
+          <p class="guidance-featured__desc">{{ g.featured.desc }}</p>
+        </div>
+      </article>
+
+      <!-- RIGHT: list + newsletter -->
+      <div class="guidance-side">
+        <article class="guidance-item" *ngFor="let it of g.items">
+          <div class="guidance-item__imgwrap">
+            <img [src]="it.image" [alt]="it.title" />
+          </div>
+          <div class="guidance-item__body">
+            <span class="guidance-item__tag" [style.color]="it.tagColor" [style.background]="it.tagBg">
+              {{ it.tag }}
+            </span>
+            <h4 class="guidance-item__title">{{ it.title }}</h4>
+            <p class="guidance-item__desc">{{ it.desc }}</p>
+          </div>
+          <span class="guidance-item__arrow">↗</span>
+        </article>
+
+        <div class="guidance-news">
+          <h4 class="guidance-news__title">{{ g.newsletterTitle }}</h4>
+          <p class="guidance-news__desc">{{ g.newsletterDesc }}</p>
+
+          <div class="guidance-news__row">
+            <input class="guidance-news__input" [class.guidance-news__input--error]="guidanceEmailError" type="email"
+              [placeholder]="g.placeholder" [(ngModel)]="guidanceEmail" (input)="onGuidanceEmailInput()"
+              (keyup.enter)="subscribeGuidance()" />
+            <button class="guidance-news__btn" type="button" (click)="subscribeGuidance()">→</button>
+          </div>
+
+          <p class="guidance-news__msg guidance-news__msg--error" *ngIf="guidanceEmailError">
+            Please enter a valid email address.
+          </p>
+          <p class="guidance-news__msg guidance-news__msg--ok" *ngIf="guidanceSubscribed">
+            ✓ Thanks for subscribing!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="end-screen">
+  <!-- ═════════ CTA ═════════ -->
+  <section class="cta" *ngIf="cta as c">
+    <span class="cta-circle cta-circle--tl"></span>
+    <span class="cta-circle cta-circle--br"></span>
+    <span class="cta-dots"></span>
+
+    <div class="cta-inner">
+      <h2 class="cta-headline">{{ c.headline }}</h2>
+      <p class="cta-desc">{{ c.description }}</p>
+
+      <div class="cta-actions">
+        <button class="cta-btn cta-btn--primary" type="button">
+          {{ c.primaryLabel }} <span class="cta-btn__arrow">→</span>
+        </button>
+        <button class="cta-btn cta-btn--ghost" type="button">{{ c.secondaryLabel }}</button>
+      </div>
+
+      <ul class="cta-notes">
+        <li *ngFor="let n of c.notes"><span class="cta-notes__tick">✓</span>{{ n }}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═════════ FOOTER ═════════ -->
+  <footer class="ftr" *ngIf="footer as f">
+    <div class="ftr-inner">
+      <div class="ftr-top">
+        <!-- Brand -->
+        <div class="ftr-brand">
+          <a class="ftr-logo" href="#" (click)="$event.preventDefault()">
+            <span class="ftr-logo__mark">{{ f.brandInitial }}</span>
+            <span class="ftr-logo__name">{{ f.brandName }}</span>
+          </a>
+          <p class="ftr-tagline">{{ f.tagline }}</p>
+          <div class="ftr-socials">
+            <a *ngFor="let s of f.socials" class="ftr-social" [href]="s.url" [attr.aria-label]="s.label"
+              (click)="$event.preventDefault()">
+              {{ s.icon }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Link columns -->
+        <div class="ftr-col" *ngFor="let col of f.columns">
+          <h4 class="ftr-col__title">{{ col.title }}</h4>
+          <ul class="ftr-col__list">
+            <li *ngFor="let l of col.links">
+              <a class="ftr-link" href="#" (click)="$event.preventDefault()">{{ l }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ftr-bottom">
+        <span class="ftr-copy">© {{ currentYear }} {{ f.brandName }}, Inc. All rights reserved.</span>
+        <div class="ftr-legal">
+          <a *ngFor="let l of f.legal" href="#" (click)="$event.preventDefault()">{{ l }}</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

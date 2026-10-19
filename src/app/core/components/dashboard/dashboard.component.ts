@@ -27,6 +27,10 @@ import {
   TabId,
   TableRow,
   Testimonial,
+  WhyFeature,
+  GuidanceData,
+  CtaData,
+  FooterData,
 } from '../../../dataType';
 import { HeroSectionComponent } from '../hero-section/hero-section.component';
 import { FormsModule } from '@angular/forms';
@@ -84,6 +88,15 @@ export class DashboardComponent implements OnInit {
   donorSteps: PipelineStep[] = [];
   heroHighlights: HeroHighlight[] = [];
   heroStats: HeroStat[] = [];
+  whyFeatures: WhyFeature[] = [];
+  guidance: GuidanceData | null = null;
+  cta: CtaData | null = null;
+  footer: FooterData | null = null;
+  readonly currentYear = new Date().getFullYear();
+
+  guidanceEmail = '';
+  guidanceEmailError = false;
+  guidanceSubscribed = false;
 
   query = '';
   focused = false;
@@ -234,6 +247,7 @@ export class DashboardComponent implements OnInit {
     this.dataService.getGwiData().subscribe((v) => (this.gwi = v));
     this.dataService.getHeroHighlights().subscribe((v) => (this.heroHighlights = v));
     this.dataService.getHeroStats().subscribe((v) => (this.heroStats = v));
+    this.dataService.getWhyFeatures().subscribe((v) => (this.whyFeatures = v));
 
     this.dataService.getDonutSegments().subscribe((segments: DonutSegment[]) => {
       let offset = 0;
@@ -245,6 +259,12 @@ export class DashboardComponent implements OnInit {
         return path;
       });
     });
+
+    this.dataService.getWhyFeatures().subscribe((v) => (this.whyFeatures = v));
+    this.dataService.getGuidanceData().subscribe((v) => (this.guidance = v)); //
+    this.dataService.getGuidanceData().subscribe((v) => (this.guidance = v));
+    this.dataService.getCtaData().subscribe((v) => (this.cta = v));
+    this.dataService.getFooterData().subscribe((v) => (this.footer = v));
   }
 
   getOffset(offset: number): number {
@@ -401,5 +421,26 @@ export class DashboardComponent implements OnInit {
   private resetTimer(): void {
     clearInterval(this.timer);
     setTimeout(() => this.startTimer(), 8000);
+  }
+
+  onGuidanceEmailInput(): void {
+    this.guidanceEmailError = false;
+    this.guidanceSubscribed = false;
+  }
+
+  subscribeGuidance(): void {
+    const email = this.guidanceEmail.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!valid) {
+      this.guidanceEmailError = true;
+      this.guidanceSubscribed = false;
+      return;
+    }
+
+    this.guidanceEmailError = false;
+    this.guidanceSubscribed = true;
+    this.guidanceEmail = '';
+    // 👉 yahan baad me API call laga sakte ho
   }
 }

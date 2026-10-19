@@ -206,3 +206,64 @@ export interface Testimonial {
   quote: string;
   avatar?: string;
 }
+
+export interface WhyFeature {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+export interface GuidanceFeatured {
+  badge: string;
+  title: string;
+  desc: string;
+  image: string;
+}
+
+export interface GuidanceItem {
+  tag: string;
+  tagColor: string;
+  tagBg: string;
+  title: string;
+  desc: string;
+  image: string;
+}
+
+export interface GuidanceData {
+  headlineTop: string;
+  headlineBottom: string;
+  ctaLabel: string;
+  featured: GuidanceFeatured;
+  items: GuidanceItem[];
+  newsletterTitle: string;
+  newsletterDesc: string;
+  placeholder: string;
+}
+
+export interface CtaData {
+  headline: string;
+  description: string;
+  primaryLabel: string;
+  secondaryLabel: string;
+  notes: string[];
+}
+
+export interface FooterSocial {
+  label: string;
+  icon: string;
+  url: string;
+}
+
+export interface FooterColumn {
+  title: string;
+  links: string[];
+}
+
+export interface FooterData {
+  brandInitial: string;
+  brandName: string;
+  tagline: string;
+  socials: FooterSocial[];
+  columns: FooterColumn[];
+  legal: string[];
+}
